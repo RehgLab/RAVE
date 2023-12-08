@@ -137,13 +137,13 @@ Dataset will be released soon.
   <td width=33% style="text-align:center;">3- Ego-exo motion</td>
 </tr>
 </table>
-<br>
+
 <table>
 <tr>
   <td><img src="assets/examples/cheetah.gif"></td>
   <td><img src="assets/examples/whales.gif"></td>
 </tr>
-<br>
+
 <tr>
   <td width=50% style="text-align:center;">4- Occlusions</td>
   <td width=50% style="text-align:center;">5- Multiple objects with appearance/disappearance</td>
