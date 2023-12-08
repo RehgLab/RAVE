@@ -11,7 +11,7 @@
 
 
 ![teaser](assets/examples/grid-2x3.gif)
-
+(Note that the videos on GitHub are heavily compressed. The full videos are available on the project webpage.)
 
 ## Abstract
 <b>TL; DR:</b> RAVE is a zero-shot, lightweight, and fast framework for text-guided video editing, supporting videos of any length utilizing text-to-image pretrained diffusion models. 
