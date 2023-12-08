@@ -152,6 +152,14 @@ dmypy.json
 # Cython debug symbols
 cython_debug/
 
+*.pt
+*.bin
+*.json
+CIVIT_AI/diffusers_models/*
+generated/*
+pretrained_models/*
+results/*
+*.gif
 # PyCharm
 #  JetBrains specific template is maintained in a separate JetBrains.gitignore that can
 #  be found at https://github.com/github/gitignore/blob/main/Global/JetBrains.gitignore

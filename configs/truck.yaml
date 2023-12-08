@@ -1,0 +1,35 @@
+# to perform grid search for any parameters, write them as a list. e.g. to try batch sizes of 2,3,4, write batch_size: [2,3,4]
+# to use 2 controls for controlnet, separate the names of the preprocesses and their scales with '-'. e.g. preprocess_name: 'depth_zoe-lineart_realistic' control
+# controlnet_conditioning_scale: '0.75-0.25'
+
+video_name: "truck"  # specify the name of the video existing in the data/mp4_videos folder (e.g. data/mp4_videos/truck.mp4)
+preprocess_name: 'depth_zoe'  # specify the name of the condition used for the video (e.g. depth_zoe condition)
+
+batch_size: 4  # denotes the batch size of grids (e.g. 4 grids run in parallel)
+batch_size_vae: 1  # denotes the batch size for the VAE (e.g. 1 grid runs in parallel for the VAE)
+
+cond_step_start: 0.0  # denotes the step to start conditioning
+
+controlnet_conditioning_scale: 1.0  # denotes the scale of the conditioning
+controlnet_guidance_end: 1.0  # denotes the end of the controlnet guidance
+controlnet_guidance_start: 0.0  # denotes the start of the controlnet guidance
+
+give_control_inversion: true  # denotes whether to give control to the inversion
+
+grid_size: 3  # denotes the size of each grid (e.g. grid_size x grid_size)
+sample_size: -1  # denotes the number of grids to be generated (-1 for the full video)
+pad: 1  # denotes the padding of the video (if 1, use the same video)
+guidance_scale: 7.5  # denotes the scale of the guidance
+inversion_prompt: ''  # denotes the inversion prompt
+
+is_ddim_inversion: true  # denotes whether to use ddim for inversion
+is_shuffle: true  # denotes whether to applying shuffling between the grids
+
+negative_prompts: ""  # denotes the negative prompts
+num_inference_steps: 50  # denotes the number of inference steps during the sampling process
+num_inversion_step: 50  # denotes the number of inversion steps during the inversion process
+positive_prompts: "Wooden trucks drive on a racetrack"  # denotes the positive prompts
+save_folder: 'truck'  # denotes the name of the folder to save the results under results
+
+seed: 0  # denotes the seed
+model_id: 'None'  # None to use stable diffusion v1.5, otherwise use the model id
