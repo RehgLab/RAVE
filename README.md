@@ -111,13 +111,13 @@ Dataset will be released soon.
   <td width=33% style="text-align:center;">3- Background Editing</td>
 </tr>
 </table>
-<br>
+
 <table>
 <tr>
   <td><img src="assets/examples/a_dinosaur.gif"></td>
   <td><img src="assets/examples/tractor.gif"></td>
 </tr>
-<br>
+
 <tr>
   <td width=50% style="text-align:center;">4- Shape/Attribute Editing</td>
   <td width=50% style="text-align:center;">5- Extreme Shape Editing</td>
