@@ -14,7 +14,7 @@
 
 
 ## Abstract
-<b>TL; DR: <font color="red">RAVE</font> is a zero-shot, lightweight, and fast framework for text-guided video editing, supporting videos of any length utilizing text-to-image pretrained diffusion models. </b>
+<b>TL; DR:</b> RAVE is a zero-shot, lightweight, and fast framework for text-guided video editing, supporting videos of any length utilizing text-to-image pretrained diffusion models. 
 
 <details><summary>Click for the full abstract</summary>
 
