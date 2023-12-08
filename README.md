@@ -4,13 +4,13 @@
 
 
 <a href='https://arxiv.org/abs/2312.04524'><img src='https://img.shields.io/badge/ArXiv-2312.04524-red'></a> 
-<a href='https://rave-video.github.io/'><img src='https://img.shields.io/badge/Project-Page-Green'></a>  [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](LINK)
+<a href='https://rave-video.github.io/'><img src='https://img.shields.io/badge/Project-Page-Green'></a>
 [![GitHub](https://img.shields.io/github/stars/rehg-lab/RAVE?style=social)](https://github.com/rehg-lab/RAVE)
 
 ![Visitors](https://api.visitorbadge.io/api/visitors?path=https%3A%2F%2Fgithub.com%2Frehg-lab%2FRAVE&label=visitors&countColor=%23263759)
 
 
-![teaser]()
+![teaser](assets/examples/grid-2x3.gif)
 
 
 ## Abstract
@@ -98,8 +98,57 @@ bash CIVIT_AI/civit_ai.sh 130072
 Dataset will be released soon.
 
 ## Examples 
+### Type of Edits
+<table>
+<tr>
+  <td><img src="assets/examples/glitter.gif"></td>
+  <td><img src="assets/examples/watercolor-new.gif"></td>
+  <td><img src="assets/examples/coast.gif"></td>
+</tr>
+<tr>
+  <td width=33% style="text-align:center;">1- Local Editing</td>
+  <td width=33% style="text-align:center;">2- Visual Style Editing</td>
+  <td width=33% style="text-align:center;">3- Background Editing</td>
+</tr>
+</table>
+<br>
+<table>
+<tr>
+  <td><img src="assets/examples/a_dinosaur.gif"></td>
+  <td><img src="assets/examples/tractor.gif"></td>
+</tr>
+<br>
+<tr>
+  <td width=50% style="text-align:center;">4- Shape/Attribute Editing</td>
+  <td width=50% style="text-align:center;">5- Extreme Shape Editing</td>
+</tr>
+</table>
 
-
+### Editing on Various Types of Motions
+<table>
+<tr>
+  <td><img src="assets/examples/crochet.gif"></td>
+  <td><img src="assets/examples/anime.gif"></td>
+  <td><img src="assets/examples/rave.gif"></td>
+</tr>
+<tr>
+  <td width=33% style="text-align:center;">1- Exo-motion</td>
+  <td width=33% style="text-align:center;">2- Ego-motion</td>
+  <td width=33% style="text-align:center;">3- Ego-exo motion</td>
+</tr>
+</table>
+<br>
+<table>
+<tr>
+  <td><img src="assets/examples/cheetah.gif"></td>
+  <td><img src="assets/examples/whales.gif"></td>
+</tr>
+<br>
+<tr>
+  <td width=50% style="text-align:center;">4- Occlusions</td>
+  <td width=50% style="text-align:center;">5- Multiple objects with appearance/disappearance</td>
+</tr>
+</table>
 
 ## Citation 
 

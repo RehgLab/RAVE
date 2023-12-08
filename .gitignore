@@ -159,7 +159,8 @@ CIVIT_AI/diffusers_models/*
 generated/*
 pretrained_models/*
 results/*
-*.gif
+
+assets/notebook-generated/*
 # PyCharm
 #  JetBrains specific template is maintained in a separate JetBrains.gitignore that can
 #  be found at https://github.com/github/gitignore/blob/main/Global/JetBrains.gitignore
