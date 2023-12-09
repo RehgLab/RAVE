@@ -48,16 +48,18 @@
 ## Installation and Inference
 
 ### Setup Environment
-You can use either 'environment.yaml' 
-```shell
-conda env create -f environment.yml
-```
-or 'requirements.txt'
+Please install our environment using 'requirements.txt' file as:
 ```shell
 conda create -n rave python=3.8
 conda activate rave
 conda install pip
+pip cache purge
 pip install -r requirements.txt
+```
+Also, please install PyTorch and Xformers as
+```shell
+pip install torch==2.0.1 torchvision==0.15.2 torchaudio==2.0.2 --index-url https://download.pytorch.org/whl/cu118
+pip install xformers==0.0.20
 ```
 to set up the Conda environment.
 
