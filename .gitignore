@@ -159,6 +159,7 @@ CIVIT_AI/diffusers_models/*
 generated/*
 pretrained_models/*
 results/*
+*.safetensors
 
 assets/notebook-generated/*
 # PyCharm

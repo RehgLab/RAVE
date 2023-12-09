@@ -251,6 +251,7 @@ class RAVE(nn.Module):
         k = None
         els = os.listdir(self.inverse_path) 
         els = [el for el in els if el.endswith('.pt')]
+
         for k,inv_path in enumerate(sorted(els, key=lambda x: int(x.split('.')[0]))):
             latents[k] = torch.load(os.path.join(self.inverse_path, inv_path)).to(device=self.device)
 

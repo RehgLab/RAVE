@@ -10,6 +10,7 @@ import datetime
 sys.path.append('/'.join(os.getcwd().split('/')[:-1]))
 from pipelines.sd_controlnet_rave import RAVE
 from pipelines.sd_multicontrolnet_rave import RAVE_MultiControlNet
+import shutil
 import subprocess
 import utils.constants as const
 import utils.video_grid_utils as vgu
@@ -48,9 +49,20 @@ def init_paths(input_ns):
     os.makedirs(input_ns.save_path, exist_ok=True)
     return input_ns
     
-
-        
-
+def install_civitai_model(model_id):
+    if len(glob.glob(f'CIVIT_AI/diffusers_models/{model_id}/*')) > 0:
+        full_path = glob.glob(f'CIVIT_AI/diffusers_models/{model_id}/*')[0]
+        return full_path
+    install_path = f'CIVIT_AI/safetensors'
+    os.makedirs(install_path, exist_ok=True)
+    os.makedirs(f'CIVIT_AI/diffusers_models/{model_id}', exist_ok=True)
+    subprocess.run(f'wget https://civitai.com/api/download/models/{model_id} --content-disposition --directory CIVIT_AI/safetensors/{model_id}'.split())
+    model_name = glob.glob(f'CIVIT_AI/safetensors/{model_id}/*')[0]
+    model_name2 = glob.glob(f'CIVIT_AI/safetensors/{model_id}/*')[0].split('/')[-1].replace('.safetensors', '')
+    print(model_name)
+    subprocess.run(f'python CIVIT_AI/convert.py --checkpoint_path {model_name}  --dump_path CIVIT_AI/diffusers_models/{model_id}/{model_name2}  --from_safetensors'.split())
+    subprocess.run(f'rm -rf CIVIT_AI/safetensors/'.split())
+    return f'CIVIT_AI/diffusers_models/{model_id}/{model_name2}'
 
 def run(*args):
     list_of_inputs = [x for x in args]
@@ -90,16 +102,13 @@ def run(*args):
     # input_ns.height = list_of_inputs[24] 
     # input_ns.original_size = list_of_inputs[25]
 
-
+    os.makedirs(f'CIVIT_AI/diffusers_models', exist_ok=True)
     if 'model_id' not in list(input_ns.__dict__.keys()):
         input_ns.model_id = "None"
     
-    if str(input_ns.model_id) not in os.listdir('CIVIT_AI/diffusers_models') and str(input_ns.model_id) != 'None':
-        print(f"Downloading model {input_ns.model_id}")
-        a = subprocess.run(["bash ./CIVIT_AI/civit_ai.sh", f"{input_ns.model_id}"], shell=True)
-    
     if str(input_ns.model_id) != 'None':
-        input_ns.model_id = glob.glob(f"CIVIT_AI/diffusers_models/{input_ns.model_id}/*")[0]
+        input_ns.model_id = install_civitai_model(input_ns.model_id)
+
     
     device = init_device()
     input_ns = init_paths(input_ns)
@@ -149,10 +158,20 @@ with block:
         gr.Markdown('## RAVE')
     with gr.Row():
         with gr.Column():
-            input_path = gr.Video(label='Input Video',
-                                  sources='upload',
-                                  format='mp4',
-                                  visible=True)
+            # input_path = gr.Video(label='Input Video',
+            #                       sources='upload',
+            #                       format='mp4',
+            #                       visible=True)
+            with gr.Row():
+                input_path = gr.File(label='Upload Input Video', file_types=['.mp4'], scale=1)
+                
+                inputs = gr.Video(label='Input Video', 
+                                    format='mp4',
+                                    visible=True,
+                                    interactive=False,
+                                    scale=5)
+                input_path.upload(lambda x:x, inputs=[input_path], outputs=[inputs])
+                
             with gr.Row():
                 positive_prompts = gr.Textbox(label='Positive prompts')
                 negative_prompts = gr.Textbox(label='Negative prompts')
@@ -221,12 +240,12 @@ with block:
                     num_inference_steps = gr.Slider(label='Number of inference steps',
                               minimum=1,
                               maximum=100,
-                              value=50,
+                              value=20,
                               step=1)
                     num_inversion_step = gr.Slider(label='Number of inversion steps',
                               minimum=1,
                               maximum=100,
-                              value=50,
+                              value=20,
                               step=1)
                     cond_step_start = gr.Slider(label='Conditioning step start',
                                 minimum=0,
@@ -272,10 +291,11 @@ with block:
                                 step=1)
 
         with gr.Column():
-            result_video = gr.Image(label='Edited Video',
-                                    interactive=False)
-            control_video = gr.Image(label='Control Video',
-                                    interactive=False)
+            with gr.Row():
+                result_video = gr.Image(label='Edited Video',
+                                        interactive=False)
+                control_video = gr.Image(label='Control Video',
+                                        interactive=False)
 
     inputs = [input_path, preprocess_name, batch_size, batch_size_vae, cond_step_start, controlnet_conditioning_scale, controlnet_guidance_end, controlnet_guidance_start, give_control_inversion, grid_size, sample_size, pad, guidance_scale, inversion_prompt, is_ddim_inversion, is_shuffle, negative_prompts, num_inference_steps, num_inversion_step, positive_prompts, save_folder, seed, model_id]
     

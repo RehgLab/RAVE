@@ -34,13 +34,15 @@
 
 
 ## Updates
+- [12/2023] Gradio demo is released, HuggingFace Space demo will be released soon
 - [12/2023] Paper is available on ArXiv, project webpage is ready and code is released.
 
 ### TODO
 - [ ] Integrate [FreeU](https://github.com/ChenyangSi/FreeU)
 - [ ] Add more examples
 - [ ] Share the dataset
-- [ ] Add CivitAI models to Grad.io
+- [ ] Optimize preprocessing
+- [X] Add CivitAI models to Grad.io
 - [X] ~~Prepare a grad.io based GUI~~
 - [X] ~~Integrate MultiControlNet~~
 - [X] ~~Adapt CIVIT AI models~~
@@ -63,7 +65,7 @@ pip install xformers==0.0.20
 ```
 to set up the Conda environment.
 
-Our code was tested on the following versions:
+Our code was tested on Linux with the following versions:
 ```shell
 timm==0.6.7 torch==2.0.1+cu118 xformers==0.0.20 diffusers==0.18.2 torch.version.cuda==11.8 python==3.8.0
 ```

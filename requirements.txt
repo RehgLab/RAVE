@@ -2,6 +2,7 @@ accelerate
 basicsr
 diffusers==0.18.2
 einops
+gradio
 imageio
 matplotlib
 mmdet==3.2.0

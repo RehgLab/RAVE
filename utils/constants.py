@@ -27,7 +27,15 @@ PREPROCESSOR_DICT = {
 }
 
 MODEL_IDS = {
-    # 'Realistic Vision': '130072',
+    'Realistic Vision V5.1': '130072',
+    'Realistic Vision V6.0' : '245598',
+    'MajicMIXRealisticV7' : '176425',
+    'DreamShaper' : '128713',
+    'EpicPhotoGasm' : '223670',
+    'DivineEleganceMix (Anime)': '238656',
+    'GhostMix (Anime)': '76907',
+    'CetusMix (Anime)': '105924',
+    'Counterfeit (Anime)': '57618',
     'SD 1.5': 'None'
 }
 

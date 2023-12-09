@@ -23,7 +23,7 @@ def prepare_video_to_grid(path, grid_count, grid_size, pad):
     ])
     success = True
 
-    # max_grid_area = 512*512* grid_size**2
+    max_grid_area = 512*512* grid_size**2
     grids = []
     frames = []
 
@@ -39,11 +39,11 @@ def prepare_video_to_grid(path, grid_count, grid_size, pad):
             if len(frames) == total_grid:
                 grid = make_grid(frames, nrow=grid_size, padding=0)
                 pil_image = (to_pil_image(grid))
-                # w,h = pil_image.size
-                # a = float(np.sqrt((w*h/max_grid_area)))
-                # w1 = int((w//a)//(grid_size*8))*grid_size*8
-                # h1 = int((h//a)//(grid_size*8))*grid_size*8
-                # pil_image= pil_image.resize((w1, h1))
+                w,h = pil_image.size
+                a = float(np.sqrt((w*h/max_grid_area)))
+                w1 = int((w//a)//(grid_size*8))*grid_size*8
+                h1 = int((h//a)//(grid_size*8))*grid_size*8
+                pil_image= pil_image.resize((w1, h1))
                 grids.append(pil_image)
 
                 frames = []
