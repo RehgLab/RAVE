@@ -39,7 +39,8 @@
 - [ ] Integrate [FreeU](https://github.com/ChenyangSi/FreeU)
 - [ ] Add more examples
 - [ ] Share the dataset
-- [ ] Prepare a grad.io based GUI
+- [ ] Add CivitAI models to Grad.io
+- [X] ~~Prepare a grad.io based GUI~~
 - [X] ~~Integrate MultiControlNet~~
 - [X] ~~Adapt CIVIT AI models~~
 
@@ -63,6 +64,15 @@ Our code was tested on the following versions:
 ```shell
 timm==0.6.7 torch==2.0.1+cu118 xformers==0.0.20 diffusers==0.18.2 torch.version.cuda==11.8 python==3.8.0
 ```
+
+### WebUI Demo
+
+To run our grad.io based web demo, run the following command:
+```shell
+python webui.py
+```
+Then, specify your configurations and perform editing.
+
 
 ### Inference
 

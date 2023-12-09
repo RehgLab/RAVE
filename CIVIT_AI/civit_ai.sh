@@ -19,7 +19,7 @@ conda activate rave
 cd ../..
 python convert.py \
     --checkpoint_path "$CWDPATH/CIVIT_AI/safetensors/$civit_ai/$model_name" \
-    --dump_path "$CWDPATH/CIVIT_AI/diffusers_models/$model_name2" \
+    --dump_path "$CWDPATH/CIVIT_AI/diffusers_models/$civit_ai/$model_name2" \
     --from_safetensors
 
 rm -rf $CWDPATH/CIVIT_AI/safetensors/

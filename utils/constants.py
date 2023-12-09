@@ -26,3 +26,8 @@ PREPROCESSOR_DICT = {
     'depth_zoe': 'lllyasviel/control_v11f1p_sd15_depth',
 }
 
+MODEL_IDS = {
+    # 'Realistic Vision': '130072',
+    'SD 1.5': 'None'
+}
+
