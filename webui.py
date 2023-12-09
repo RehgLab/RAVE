@@ -55,7 +55,7 @@ def init_paths(input_ns):
 def run(*args):
     list_of_inputs = [x for x in args]
     input_ns = argparse.Namespace(**{})
-    input_ns.video_path = 'data/mp4_videos/truck.mp4' # video_path 
+    input_ns.video_path = list_of_inputs[0] # video_path 
     input_ns.video_name = input_ns.video_path.split('/')[-1].replace('.mp4', '').replace('.gif', '') 
     input_ns.preprocess_name = list_of_inputs[1]
 
