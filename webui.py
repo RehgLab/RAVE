@@ -55,7 +55,7 @@ def init_paths(input_ns):
 def run(*args):
     list_of_inputs = [x for x in args]
     input_ns = argparse.Namespace(**{})
-    input_ns.video_path = list_of_inputs[0] # video_path 
+    input_ns.video_path = 'data/mp4_videos/truck.mp4' # video_path 
     input_ns.video_name = input_ns.video_path.split('/')[-1].replace('.mp4', '').replace('.gif', '') 
     input_ns.preprocess_name = list_of_inputs[1]
 
@@ -86,6 +86,9 @@ def run(*args):
 
     input_ns.seed = list_of_inputs[21]  
     input_ns.model_id = const.MODEL_IDS[list_of_inputs[22]] 
+    # input_ns.width = list_of_inputs[23] 
+    # input_ns.height = list_of_inputs[24] 
+    # input_ns.original_size = list_of_inputs[25]
 
 
     if 'model_id' not in list(input_ns.__dict__.keys()):
@@ -102,7 +105,9 @@ def run(*args):
     input_ns = init_paths(input_ns)
 
     input_ns.image_pil_list = vgu.prepare_video_to_grid(input_ns.video_path, input_ns.sample_size, input_ns.grid_size, input_ns.pad)
-    print(input_ns.video_path )
+    # if not input_ns.original_size:
+    #     input_ns.image_pil_list = [x.resize((int(input_ns.width * input_ns.grid_size), int(input_ns.height * input_ns.grid_size))) for x in input_ns.image_pil_list]
+    print(input_ns.video_path)
     input_ns.sample_size = len(input_ns.image_pil_list)
     print(f'Frame count: {len(input_ns.image_pil_list)}')
 
@@ -110,7 +115,6 @@ def run(*args):
     
 
     CN = controlnet_class(device)
-
 
     CN.init_models(input_ns.hf_cn_path, input_ns.hf_path, input_ns.preprocess_name, input_ns.model_id)
     
@@ -161,13 +165,28 @@ with block:
                                 maximum=40,
                                 step=0.1,
                                 value=7.5)
-            inversion_prompt = gr.Textbox(label='Inversion prompt')
-            seed = gr.Slider(label='Seed',
-                             minimum=0,
-                             maximum=2147483647,
-                             step=1,
-                             value=0,
-                             randomize=True)
+            # with gr.Row():
+            #     width = gr.Slider(label='Frame Width',
+            #                     minimum=64,
+            #                     maximum=1280,
+            #                     step=64,
+            #                     value=512)
+            #     height = gr.Slider(label='Frame Height',
+            #                     minimum=64,
+            #                     maximum=1280,
+            #                     step=64,
+            #                     value=512)
+            #     original_size = gr.Checkbox(
+            #         label='Original size',
+            #         value=True)
+            with gr.Row():
+                inversion_prompt = gr.Textbox(label='Inversion prompt')
+                seed = gr.Slider(label='Seed',
+                                minimum=0,
+                                maximum=2147483647,
+                                step=1,
+                                value=0,
+                                randomize=True)
             
             with gr.Row():
                 model_id = gr.Dropdown(const.MODEL_IDS,
