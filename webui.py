@@ -7,7 +7,7 @@ import os
 import sys
 import yaml
 import datetime
-sys.path.append('/'.join(os.getcwd().split('/')[:-1]))
+sys.path.append(os.path.dirname(os.getcwd()))
 from pipelines.sd_controlnet_rave import RAVE
 from pipelines.sd_multicontrolnet_rave import RAVE_MultiControlNet
 import shutil
@@ -29,11 +29,11 @@ def init_paths(input_ns):
     if input_ns.save_folder == None or input_ns.save_folder == '':
         input_ns.save_folder = input_ns.video_name
     else:
-        input_ns.save_folder += f"/{input_ns.video_name}"
-    save_dir = f'{const.OUTPUT_PATH}/{input_ns.save_folder}'
+        input_ns.save_folder = os.path.join(input_ns.save_folder, input_ns.video_name)
+    save_dir = os.path.join(const.OUTPUT_PATH, input_ns.save_folder)
     os.makedirs(save_dir, exist_ok=True)
     save_idx = max([int(x[-5:]) for x in os.listdir(save_dir)])+1 if os.listdir(save_dir) != [] else 0
-    input_ns.save_path = f'{save_dir}/{input_ns.positive_prompts}-{str(save_idx).zfill(5)}'
+    input_ns.save_path = os.path.join(save_dir, f'{input_ns.positive_prompts}-{str(save_idx).zfill(5)}')
     
     
     if '-' in input_ns.preprocess_name:
@@ -42,33 +42,38 @@ def init_paths(input_ns):
         input_ns.hf_cn_path = const.PREPROCESSOR_DICT[input_ns.preprocess_name]
     input_ns.hf_path = "runwayml/stable-diffusion-v1-5"
     
-    input_ns.inverse_path = f'{const.GENERATED_DATA_PATH}/inverses/{input_ns.video_name}/{input_ns.preprocess_name}_{input_ns.model_id}_{input_ns.grid_size}x{input_ns.grid_size}_{input_ns.pad}'
-    input_ns.control_path = f'{const.GENERATED_DATA_PATH}/controls/{input_ns.video_name}/{input_ns.preprocess_name}_{input_ns.grid_size}x{input_ns.grid_size}_{input_ns.pad}'
+    input_ns.inverse_path = os.path.join(const.GENERATED_DATA_PATH, 'inverses', input_ns.video_name, f'{input_ns.preprocess_name}_{input_ns.model_id}_{input_ns.grid_size}x{input_ns.grid_size}_{input_ns.pad}')
+    input_ns.control_path = os.path.join(const.GENERATED_DATA_PATH, 'controls', input_ns.video_name, f'{input_ns.preprocess_name}_{input_ns.grid_size}x{input_ns.grid_size}_{input_ns.pad}')
     os.makedirs(input_ns.control_path, exist_ok=True)
     os.makedirs(input_ns.inverse_path, exist_ok=True)
     os.makedirs(input_ns.save_path, exist_ok=True)
     return input_ns
     
 def install_civitai_model(model_id):
-    if len(glob.glob(f'CIVIT_AI/diffusers_models/{model_id}/*')) > 0:
-        full_path = glob.glob(f'CIVIT_AI/diffusers_models/{model_id}/*')[0]
+    full_path = os.path.join(const.CWD, 'CIVIT_AI', 'diffusers_models', model_id, '*')
+    if len(glob.glob(full_path)) > 0:
+        full_path = glob.glob(full_path)[0]
         return full_path
-    install_path = f'CIVIT_AI/safetensors'
+    install_path = os.path.join(const.CWD, 'CIVIT_AI', 'safetensors')
+    install_path_model = os.path.join(const.CWD, 'CIVIT_AI', 'safetensors', model_id)
+    diffusers_path = os.path.join(const.CWD, 'CIVIT_AI', 'diffusers_models', model_id)
+    convert_py_path = os.path.join(const.CWD, 'CIVIT_AI', 'convert.py')
     os.makedirs(install_path, exist_ok=True)
-    os.makedirs(f'CIVIT_AI/diffusers_models/{model_id}', exist_ok=True)
-    subprocess.run(f'wget https://civitai.com/api/download/models/{model_id} --content-disposition --directory CIVIT_AI/safetensors/{model_id}'.split())
-    model_name = glob.glob(f'CIVIT_AI/safetensors/{model_id}/*')[0]
-    model_name2 = glob.glob(f'CIVIT_AI/safetensors/{model_id}/*')[0].split('/')[-1].replace('.safetensors', '')
+    os.makedirs(diffusers_path, exist_ok=True)
+    subprocess.run(f'wget https://civitai.com/api/download/models/{model_id} --content-disposition --directory {install_path_model}'.split())
+    model_name = glob.glob(os.path.join(install_path, model_id, '*'))[0]
+    model_name2 = os.path.basename(glob.glob(os.path.join(install_path, model_id, '*'))[0]).replace('.safetensors', '')
+    diffusers_path_model_name = os.path.join(const.CWD, 'CIVIT_AI', 'diffusers_models', model_id, model_name2)
     print(model_name)
-    subprocess.run(f'python CIVIT_AI/convert.py --checkpoint_path {model_name}  --dump_path CIVIT_AI/diffusers_models/{model_id}/{model_name2}  --from_safetensors'.split())
-    subprocess.run(f'rm -rf CIVIT_AI/safetensors/'.split())
-    return f'CIVIT_AI/diffusers_models/{model_id}/{model_name2}'
+    subprocess.run(f'python {convert_py_path} --checkpoint_path {model_name}  --dump_path {diffusers_path_model_name}  --from_safetensors'.split())
+    subprocess.run(f'rm -rf {install_path}'.split())
+    return diffusers_path_model_name
 
 def run(*args):
     list_of_inputs = [x for x in args]
     input_ns = argparse.Namespace(**{})
     input_ns.video_path = list_of_inputs[0] # video_path 
-    input_ns.video_name = input_ns.video_path.split('/')[-1].replace('.mp4', '').replace('.gif', '') 
+    input_ns.video_name = os.path.basename(input_ns.video_path).replace('.mp4', '').replace('.gif', '') 
     input_ns.preprocess_name = list_of_inputs[1]
 
     input_ns.batch_size = list_of_inputs[2]  
@@ -101,8 +106,8 @@ def run(*args):
     # input_ns.width = list_of_inputs[23] 
     # input_ns.height = list_of_inputs[24] 
     # input_ns.original_size = list_of_inputs[25]
-
-    os.makedirs(f'CIVIT_AI/diffusers_models', exist_ok=True)
+    diffusers_model_path = os.path.join(const.CWD, 'CIVIT_AI', 'diffusers_models')
+    os.makedirs(diffusers_model_path, exist_ok=True)
     if 'model_id' not in list(input_ns.__dict__.keys()):
         input_ns.model_id = "None"
     
@@ -114,8 +119,7 @@ def run(*args):
     input_ns = init_paths(input_ns)
 
     input_ns.image_pil_list = vgu.prepare_video_to_grid(input_ns.video_path, input_ns.sample_size, input_ns.grid_size, input_ns.pad)
-    # if not input_ns.original_size:
-    #     input_ns.image_pil_list = [x.resize((int(input_ns.width * input_ns.grid_size), int(input_ns.height * input_ns.grid_size))) for x in input_ns.image_pil_list]
+
     print(input_ns.video_path)
     input_ns.sample_size = len(input_ns.image_pil_list)
     print(f'Frame count: {len(input_ns.image_pil_list)}')
@@ -138,17 +142,17 @@ def run(*args):
     else: 
         res_vid, control_vid = CN(input_dict)
     end_time = datetime.datetime.now()
-    save_name = f"{'-'.join(input_ns.positive_prompts.split())}_cstart-{input_ns.controlnet_guidance_start}_gs-{input_ns.guidance_scale}_pre-{'-'.join((input_ns.preprocess_name.replace('-','+').split('_')))}_cscale-{input_ns.controlnet_conditioning_scale}_grid-{input_ns.grid_size}_pad-{input_ns.pad}_model-{input_ns.model_id.split('/')[-1]}"
-    res_vid[0].save(f"{input_ns.save_path}/{save_name}.gif", save_all=True, append_images=res_vid[1:], optimize=False, loop=10000)
-    control_vid[0].save(f"{input_ns.save_path}/control_{save_name}.gif", save_all=True, append_images=control_vid[1:], optimize=False, loop=10000)
+    save_name = f"{'-'.join(input_ns.positive_prompts.split())}_cstart-{input_ns.controlnet_guidance_start}_gs-{input_ns.guidance_scale}_pre-{'-'.join((input_ns.preprocess_name.replace('-','+').split('_')))}_cscale-{input_ns.controlnet_conditioning_scale}_grid-{input_ns.grid_size}_pad-{input_ns.pad}_model-{os.path.basename(input_ns.model_id)}"
+    res_vid[0].save(os.path.join(input_ns.save_path, f'{save_name}.gif'), save_all=True, append_images=res_vid[1:], loop=10000)
+    control_vid[0].save(os.path.join(input_ns.save_path, f'control_{save_name}.gif'), save_all=True, append_images=control_vid[1:], optimize=False, loop=10000)
 
     yaml_dict['total_time'] = (end_time - start_time).total_seconds()
     yaml_dict['total_number_of_frames'] = len(res_vid)
     yaml_dict['sec_per_frame'] = yaml_dict['total_time']/yaml_dict['total_number_of_frames']
-    with open(f'{input_ns.save_path}/config.yaml', 'w') as yaml_file:
+    with open(os.path.join(input_ns.save_path, 'config.yaml'), 'w') as yaml_file:
         yaml.dump(yaml_dict, yaml_file)
     
-    return f"{input_ns.save_path}/{save_name}.gif", f"{input_ns.save_path}/control_{save_name}.gif"
+    return os.path.join(input_ns.save_path, f'{save_name}.gif'), os.path.join(input_ns.save_path, f'control_{save_name}.gif')
 
 
 
@@ -184,20 +188,7 @@ with block:
                                 maximum=40,
                                 step=0.1,
                                 value=7.5)
-            # with gr.Row():
-            #     width = gr.Slider(label='Frame Width',
-            #                     minimum=64,
-            #                     maximum=1280,
-            #                     step=64,
-            #                     value=512)
-            #     height = gr.Slider(label='Frame Height',
-            #                     minimum=64,
-            #                     maximum=1280,
-            #                     step=64,
-            #                     value=512)
-            #     original_size = gr.Checkbox(
-            #         label='Original size',
-            #         value=True)
+
             with gr.Row():
                 inversion_prompt = gr.Textbox(label='Inversion prompt')
                 seed = gr.Slider(label='Seed',

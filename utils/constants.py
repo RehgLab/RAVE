@@ -5,8 +5,8 @@ from datetime import datetime
 date_time = datetime.now().strftime("%m-%d-%Y")
 
 CWD = os.getcwd()
-MP4_PATH = f'{CWD}/data/mp4_videos'
-OUTPUT_PATH = f'{CWD}/results/{date_time}'
+MP4_PATH = os.path.join(CWD, 'data', 'mp4_videos')
+OUTPUT_PATH = os.path.join(CWD, 'results', date_time) 
 
 GENERATED_DATA_PATH = os.path.join(CWD, 'generated', 'data')
 PREPROCESSOR_DICT = {
