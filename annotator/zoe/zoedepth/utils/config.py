@@ -32,7 +32,6 @@ import pathlib
 import platform
 
 ROOT = pathlib.Path(__file__).parent.parent.resolve()
-
 HOME_DIR = os.path.expanduser("~")
 
 COMMON_CONFIG = {

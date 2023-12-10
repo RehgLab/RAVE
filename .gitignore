@@ -154,7 +154,6 @@ cython_debug/
 
 *.pt
 *.bin
-*.json
 CIVIT_AI/diffusers_models/*
 generated/*
 pretrained_models/*
