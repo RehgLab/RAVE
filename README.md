@@ -2,7 +2,7 @@
 
 [Ozgur Kara](https://karaozgur.com/), [Bariscan Kurtkaya](https://bariscankurtkaya.github.io/), [Hidir Yesiltepe](https://sites.google.com/view/hidir-yesiltepe), [James M. Rehg](https://scholar.google.com/citations?hl=en&user=8kA3eDwAAAAJ), [Pinar Yanardag](https://scholar.google.com/citations?user=qzczdd8AAAAJ&hl=en)
 
-<a href="https://huggingface.co/spaces/Anonymous-sub/Rerender"><img src="https://huggingface.co/datasets/huggingface/badges/raw/main/open-in-hf-spaces-sm-dark.svg" alt="Web Demo">
+<a href="https://huggingface.co/spaces/ozgurkara/RAVE"><img src="https://huggingface.co/datasets/huggingface/badges/raw/main/open-in-hf-spaces-sm-dark.svg" alt="Web Demo">
 <a href='https://arxiv.org/abs/2312.04524'><img src='https://img.shields.io/badge/ArXiv-2312.04524-red'></a> 
 <a href='https://rave-video.github.io/'><img src='https://img.shields.io/badge/Project-Page-green'></a>
 <a href='https://rave-video.github.io/supp/supp.html'><img src='https://img.shields.io/badge/Supplementary-Page-yellow'></a>
