@@ -169,7 +169,7 @@ Dataset will be released soon.
 
 ```
 @inproceedings{kara2024rave,
-  title={ISNAS-DIP: Image-Specific Neural Architecture Search for Deep Image Prior},
+  title={RAVE: Randomized Noise Shuffling for Fast and Consistent Video Editing with Diffusion Models},
   author={Ozgur Kara and Bariscan Kurtkaya and Hidir Yesiltepe and James M. Rehg and Pinar Yanardag},
   booktitle={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition},
   year={2024}
