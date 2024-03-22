@@ -39,10 +39,9 @@
 - [12/2023] Paper is available on ArXiv, project webpage is ready and code is released.
 
 ### TODO
-- [ ] Integrate [FreeU](https://github.com/ChenyangSi/FreeU)
-- [ ] Add more examples
 - [ ] Share the dataset
-- [ ] Optimize preprocessing
+- [X] Add more examples
+- [X] Optimize preprocessing
 - [X] Add CivitAI models to Grad.io
 - [X] ~~Prepare a grad.io based GUI~~
 - [X] ~~Integrate MultiControlNet~~
@@ -169,12 +168,13 @@ Dataset will be released soon.
 ## Citation 
 
 ```
-@article{2312.04524,
-Author = {Ozgur Kara and Bariscan Kurtkaya and Hidir Yesiltepe and James M. Rehg and Pinar Yanardag},
-Title = {RAVE: Randomized Noise Shuffling for Fast and Consistent Video Editing with Diffusion Models},
-Year = {2023},
-Eprint = {arXiv:2312.04524},
+@inproceedings{kara2024rave,
+  title={ISNAS-DIP: Image-Specific Neural Architecture Search for Deep Image Prior},
+  author={Ozgur Kara and Bariscan Kurtkaya and Hidir Yesiltepe and James M. Rehg and Pinar Yanardag},
+  booktitle={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition},
+  year={2024}
 }
+
 ``` 
 
 ## Maintenance
