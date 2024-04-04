@@ -1,5 +1,5 @@
 ### RAVE: Randomized Noise Shuffling for Fast and Consistent Video Editing with Diffusion Models - Official Repo
-### CVPR 2024
+### CVPR 2024 (Highlight)
 
 [Ozgur Kara](https://karaozgur.com/), [Bariscan Kurtkaya](https://bariscankurtkaya.github.io/), [Hidir Yesiltepe](https://sites.google.com/view/hidir-yesiltepe), [James M. Rehg](https://scholar.google.com/citations?hl=en&user=8kA3eDwAAAAJ), [Pinar Yanardag](https://scholar.google.com/citations?user=qzczdd8AAAAJ&hl=en)
 
