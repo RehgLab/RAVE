@@ -6,6 +6,7 @@
 <a href="https://huggingface.co/spaces/ozgurkara/RAVE"><img src="https://huggingface.co/datasets/huggingface/badges/raw/main/open-in-hf-spaces-sm-dark.svg" alt="Web Demo">
 <a href='https://arxiv.org/abs/2312.04524'><img src='https://img.shields.io/badge/ArXiv-2312.04524-red'></a> 
 <a href='https://rave-video.github.io/'><img src='https://img.shields.io/badge/Project-Page-green'></a>
+<a href='https://youtu.be/2hQho5AC9T0?si=3R_jYDbcL2olODCV'><img src='https://img.shields.io/badge/YouTube-red?style=for-the-badge&logo=youtube&logoColor=white'></a>
 <a href='https://rave-video.github.io/supp/supp.html'><img src='https://img.shields.io/badge/Supplementary-Page-yellow'></a>
 [![GitHub](https://img.shields.io/github/stars/rehg-lab/RAVE?style=social)](https://github.com/rehg-lab/RAVE)
 
